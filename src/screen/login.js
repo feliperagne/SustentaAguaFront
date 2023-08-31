@@ -19,7 +19,7 @@ const Login = ({navigation}) => {
       if (error.response && error.response.data) {
         throw error.response.data;
       } else {
-        throw { message: 'Ocorreu um erro ao fazer o login.' };
+        throw { message: 'Ocorreu um erro ao fazer o login' };
       }
     }
   } 
