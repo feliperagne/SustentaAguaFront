@@ -6,7 +6,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import Principal from './src/screen/principal';
 import Stack from './src/navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
+import tabs from './src/navigation/tabs';
+import Tabs from './src/navigation/tabs';
 
 function HomeScreen() {
   return (
@@ -22,8 +23,8 @@ export default function App() {
 
   return (
     <NavigationContainer>
-   
-      <Stack></Stack>
+      
+      <Tabs></Tabs>
 
     </NavigationContainer>
   );
