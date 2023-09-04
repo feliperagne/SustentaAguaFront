@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import { Image } from 'react-native';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
@@ -8,6 +9,7 @@ import Stack from './src/navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import tabs from './src/navigation/tabs';
 import Tabs from './src/navigation/tabs';
+import Drawer from './src/navigation/drawer';
 
 function HomeScreen() {
   return (
@@ -23,9 +25,9 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      
-      <Tabs></Tabs>
 
+     <Drawer></Drawer>
+     <Tabs></Tabs>
     </NavigationContainer>
   );
 }
