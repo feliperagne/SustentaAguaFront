@@ -1,27 +1,31 @@
 import { View, Image,Text,StyleSheet } from "react-native";
 import React from "react";
-import { FlatList } from "react-native";
+/*import { FlatList } from "react-native";
 import { StatusBar } from "react-native";
 import { TouchableHighlight } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button } from "react-native";
+import { Button } from "react-native";*/
 
-//EXEMPLOS DE COMO IMPORTAR IMAGENS, FLATLIST E TOUCHABLE
-
-
-const DATA = [
-    {
-        id:'felipe',
-        title:'felipao lindao'
-    },
-    {
-        id:'lanza',
-        title:'lanza paga uma pra nois'
-    }
-]
-export default({navigation}) =>{
+const cabecalho = () => {
+    return (
+        <View style={styles.header}>
+        <View style={styles.userInfo}>
+          <Image
+            style={styles.profileImage}
+            source={require('../../assets/felipe.jpg')} // Substitua pelo caminho da sua imagem de perfil
+          />
+          <Text style={styles.welcomeText}>Bem-vindo,Felipe</Text>
+        </View>
+        <Image
+          style={styles.logo}
+          source={require('../../assets/agua.webp')} // Substitua pelo caminho do seu logotipo fictício
+        />
+        </View>
+    )
+}
+/*export default({navigation}) =>{
     return (
         <ScrollView>
         <View style={styles.container}>
@@ -69,28 +73,37 @@ export default({navigation}) =>{
 
     )
     
-}
+}*/
 
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        justifyContent:"center",
-    },
-    image:{
-        height:300,
-        width:300,
-        resizeMode: 'contain',
-    },
-    list:{
-        padding:10,
-        backgroundColor:'#4825',
-        marginHorizontal:10,
-        marginVertical:10,
-        marginTop: StatusBar.currentHeight || 0
-    }
-
+        backgroundColor: 'blue', // Cor de fundo do cabeçalho
+        padding: 30,
+      },
+      userInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+      },
+      profileImage: {
+        width: 60,
+        height: 60,
+        borderRadius: 20, // Isso torna a imagem circular
+        marginRight: 10,
+      },
+      welcomeText: {
+        color: 'white', // Cor do texto
+        fontSize: 16,
+      },
+      logo: {
+        width: 120,
+        height: 80,
+        resizeMode: 'contain', // Isso garante que o logotipo se ajuste ao espaço
+      },
 
 
 });
+export default cabecalho

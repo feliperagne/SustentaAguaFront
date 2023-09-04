@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity,Image } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,7 +7,6 @@ import { useNavigation } from '@react-navigation/native';
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [email, setEmail] = useState('');
   const urlAPI = 'https://df58-201-63-132-162.ngrok-free.app/api';;
 
    async function login(username, password) {
@@ -29,7 +28,7 @@ const Login = ({navigation}) => {
       const response = await login(username, password);
       console.log('Login successful', response);
       Alert.alert('Login bem sucedido!');
-      navigation.navigate('principal');
+      navigation.navigate('Página inicial');
     } catch (error) {
       console.log('Login error', error);
       if (error.message) {
@@ -63,11 +62,19 @@ const Login = ({navigation}) => {
 
 
       <View style={styles.footer}>
+        <View style={{flexDirection:'row'}}>
         <TouchableOpacity
-          onPress={() => navigation.navigate('cadastrousuario')}
+          onPress={() => navigation.navigate('Cadastrando Seu Usuário')}
         >
           <Text style={styles.linktext}>Não possui seu usuário? Crie agora!</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+        style={{marginLeft:10}}
+          onPress={() => navigation.navigate('Quem sou eu?')}
+        >
+          <Text style={styles.linktext}>Sobre o criador</Text>
+        </TouchableOpacity>
+        </View>
       <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
       </View>
     </View>
