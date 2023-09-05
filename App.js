@@ -3,7 +3,7 @@ import { Image } from 'react-native';
 import { Button, StyleSheet, Text, TextInput, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { NavigationContainer } from '@react-navigation/native';
-import Principal from './src/screen/principal';
+import Noticias from './src/screen/noticias';
 import Stack from './src/navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 

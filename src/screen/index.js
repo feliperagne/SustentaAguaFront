@@ -4,8 +4,10 @@ import { useRoute } from "@react-navigation/native";
 import Cabecalho from "./tela3";
 import { useNavigation } from "@react-navigation/native";
 
-export default ({}) => {
-  //const {nomeusuario} = route.params
+
+
+export default () => {
+  
   const navigation = useNavigation();
   return (
     <View>
@@ -28,9 +30,9 @@ export default ({}) => {
 
         <Button
           title="Metas da ONU - 2050"
-          onPress={() => navigation.navigate("principal")}
+          onPress={() => navigation.navigate("Notícias")}
         ></Button>
-        <View style={{ top: 10 }}>
+        <View style={{ top: 20 }}>
           <Button
             title="Calculadora Sustentável"
             onPress={() => navigation.navigate("Calculadora Sustentável")}

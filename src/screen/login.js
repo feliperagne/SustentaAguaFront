@@ -7,38 +7,54 @@ import { useNavigation } from '@react-navigation/native';
 const Login = ({navigation}) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://df58-201-63-132-162.ngrok-free.app/api';;
+  const urlAPI = 'https://f7e6-201-63-132-162.ngrok-free.app/api'
 
-   async function login(username, password) {
+  async function login(username, password) {
     try {
       const response = await axios.post(`${urlAPI}/login`, { 'username': username, 'password': password });
-      console.log(response)
+      console.log(response);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
-        throw error.response.data;
-      } else {
-        throw { message: 'Ocorreu um erro ao fazer o login' };
+        const errors = error.response.data.errors;
+        if (errors) {
+          const errorMessages = [];
+          for (const errorKey in errors) {
+            if (errors.hasOwnProperty(errorKey)) {
+              const errorList = errors[errorKey];
+              for (const errorMessage of errorList) {
+                errorMessages.push(`${errorKey}: ${errorMessage}`);
+              }
+            }
+          }
+          throw errorMessages.join('\n'); // Junte todos os erros em uma única string
+        }
       }
+      throw 'Ocorreu um erro ao fazer o login';
     }
-  } 
+  }
 
   async function handleLogin() {
     try {
-      const response = await login(username, password);
-      console.log('Login successful', response);
+      const user = await login(username, password);
+      if(user){
+      console.log('Login bem sucedido', user);
       Alert.alert('Login bem sucedido!');
+      setUsername(user.username)
       navigation.navigate('Página inicial');
+      }
     } catch (error) {
       console.log('Login error', error);
-      if (error.message) {
-        Alert.alert('Erro de Login', error.message);
+      if (Array.isArray(error)) {
+        // Se error for um array, exibe os erros separados por quebras de linha
+        Alert.alert('Erro de Login', error.join('\n'));
+      } else if (typeof error === 'string') {
+        Alert.alert('Erro de Login', error);
       } else {
         Alert.alert('Erro de Login: Ocorreu um erro ao fazer o login.');
       }
     }
   }
- 
   
   return (
     <View style={styles.container}>

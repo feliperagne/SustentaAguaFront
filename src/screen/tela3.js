@@ -1,27 +1,63 @@
-import { View, Image,Text,StyleSheet } from "react-native";
+import { View, Image,Text,StyleSheet, TouchableOpacity,Alert } from "react-native";
 import React from "react";
-/*import { FlatList } from "react-native";
+import axios from "axios";
+import useNavigation from "@react-navigation/native";
 import { StatusBar } from "react-native";
 import { TouchableHighlight } from "react-native";
-import { TouchableOpacity } from "react-native";
 import { ScrollView } from "react-native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Button } from "react-native";*/
+import { Button } from "react-native";
+import useRoute from "@react-navigation/native";
+
 
 const cabecalho = () => {
+  const route = useRoute();
+  const userName = route.params?.username || "Maluco";
+  const urlAPI = 'https://f7e6-201-63-132-162.ngrok-free.app/api/logout'
+  const navigation = useNavigation();
+  
+ async function sair(navigation) {
+    try {
+      const response = await axios.post(urlAPI);
+      if (response.status === 200) {
+        // Logout bem-sucedido, você pode executar ações adicionais aqui
+        Alert.alert('Logout bem-sucedido', 'Você saiu com sucesso.');
+        navigation.navigate('Login'); 
+      } else {
+      
+        Alert.alert('Erro no logout', 'Ocorreu um erro durante o logout.');
+      }
+    } catch (error) {
+      // Lidar com erros de rede ou outros erros que podem ocorrer
+      console.error('Erro:', error);
+      Alert.alert('Erro no logout', 'Ocorreu um erro durante o logout.');
+    }
+  };
+  
+
+
+
     return (
         <View style={styles.header}>
         <View style={styles.userInfo}>
           <Image
-            style={styles.profileImage}
-            source={require('../../assets/felipe.jpg')} // Substitua pelo caminho da sua imagem de perfil
+            style={styles.logo}
+            source={require('../../assets/agua.webp')}
           />
-          <Text style={styles.welcomeText}>Bem-vindo,Felipe</Text>
+         <Text
+         style={{fontWeight:'bold', fontSize:27}}
+         >Sustenta Água</Text>
         </View>
-        <Image
-          style={styles.logo}
-          source={require('../../assets/agua.webp')} // Substitua pelo caminho do seu logotipo fictício
-        />
+        <View style={{flexDirection:'column'}}>
+          <Text
+          style={styles.welcomeText}
+          >Bem Vindo , {userName}</Text>
+        <TouchableOpacity
+        onPress={()=> sair(navigation)}
+        >
+          <Text style={styles.logout}>Logout</Text>
+        </TouchableOpacity>
+        </View>
         </View>
     )
 }
@@ -81,27 +117,45 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: 'blue', // Cor de fundo do cabeçalho
-        padding: 30,
+        backgroundColor: '#5887', // Cor de fundo do cabeçalho
+        padding: 23,
+      },
+      button: {
+        backgroundColor: 'blue',
+        width: '100%',
+        height: 40,
+        borderRadius: 8,
+        justifyContent: 'center',
+        alignItems: 'center',
+      },
+      logout:{
+        textDecorationLine:'underline',
+        color: '#801',
+        left:50,
+        top:24
+      },
+      buttonText: {
+        color: 'white',
+        fontSize: 16,
       },
       userInfo: {
         flexDirection: 'row',
         alignItems: 'center',
       },
-      profileImage: {
-        width: 60,
-        height: 60,
-        borderRadius: 20, // Isso torna a imagem circular
-        marginRight: 10,
-      },
+      
       welcomeText: {
         color: 'white', // Cor do texto
-        fontSize: 16,
+        fontSize: 12,
+        fontWeight: 'bold',
+        bottom:5,
+        left:9,
+        top:11
       },
       logo: {
-        width: 120,
-        height: 80,
-        resizeMode: 'contain', // Isso garante que o logotipo se ajuste ao espaço
+        width: 70,
+        height: 50,
+        resizeMode: 'contain',
+        right:15
       },
 
 
