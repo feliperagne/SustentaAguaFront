@@ -1,8 +1,15 @@
 import { View, Image, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import React from "react";
 import axios from "axios";
+import { useFonts, Arimo_500Medium,Arimo_600SemiBold,Arimo_700Bold,Arimo_400Regular } from "@expo-google-fonts/arimo";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+
+
+
 
 const cabecalho2 = () => {
+
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>

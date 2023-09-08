@@ -11,21 +11,39 @@ import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
 import { useState } from "react";
+import * as ImagePicker from 'expo-image-picker';
+
 
 export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = "https://f7e6-201-63-132-162.ngrok-free.app/api/user";
+  const urlAPI = "https://146c-201-49-195-24.ngrok-free.app/api/user";
   const navigation = useNavigation();
+  const [profile_image, setProfile_image] = useState(null);
 
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+      base64: true
+    });
 
-  async function cadastrarusuario(username, email, password) {
+    console.log(result);
+
+    if (!result.canceled) {
+      setProfile_image(result.assets[0].uri);
+    }
+  };
+  async function cadastrarusuario(username, email, password, profile_image) {
     try {
       const response = await axios.post(urlAPI, {
         username: username,
         email: email,
         password: password,
+        profile_image: profile_image
       });
       console.log(response);
       return response.data;
@@ -51,13 +69,13 @@ export default () => {
 
   async function handlesubmit() {
     try {
-      const response = await cadastrarusuario(username, email, password);
-      console.log('Cadastro bem sucedido', response);
-      Alert.alert('Cadastro bem sucedido!');
-      navigation.navigate('Login');
+      const response = await cadastrarusuario(username, email, password,profile_image);
+      console.log("Cadastro bem sucedido", response);
+      Alert.alert("Cadastro bem sucedido!");
+      navigation.navigate("Login");
     } catch (error) {
-      console.log('Deu erro aqui!', error);
-      Alert.alert('Erro de cadastro', error);
+      console.log("Deu erro aqui!", error);
+      Alert.alert("Erro de cadastro",error);
     }
   }
 
@@ -93,12 +111,13 @@ export default () => {
           value={password}
           onChangeText={(text) => setPassword(text)}
         ></TextInput>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() =>
-            handlesubmit()
-          }
-        >
+         <TouchableOpacity
+            style={styles.button}
+            onPress={() => pickImage()}
+          >
+            <Text style={styles.buttonText}>Escolher Imagem</Text>
+          </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={() => handlesubmit()}>
           <Text style={styles.buttonText}>Cadastrar</Text>
         </TouchableOpacity>
         <View>
@@ -108,10 +127,13 @@ export default () => {
               setUsername("");
               setEmail("");
               setPassword("");
-            }}
+              setProfile_image('')
+              }}
           >
             <Text style={styles.buttonText}>Limpar</Text>
           </TouchableOpacity>
+
+         
         </View>
       </View>
     </View>

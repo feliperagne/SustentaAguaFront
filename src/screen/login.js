@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity,Image } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
+
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://f7e6-201-63-132-162.ngrok-free.app/api'
+  const urlAPI = 'https://146c-201-49-195-24.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
@@ -40,7 +41,7 @@ const Login = ({navigation}) => {
       if(user){
       console.log('Login bem sucedido', user);
       Alert.alert('Login bem sucedido!');
-      setUsername(user.username)
+     await AsyncStorage.setItem('username',username)
       navigation.navigate('Página inicial');
       }
     } catch (error) {
@@ -103,6 +104,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
+    
   },
   title: {
     fontSize: 24,

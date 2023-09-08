@@ -1,43 +1,45 @@
 import React from "react";
-import { Text, View, StyleSheet, Image, Button } from "react-native";
-import { useRoute } from "@react-navigation/native";
-import Cabecalho from "./tela3";
+import { Text, View, StyleSheet, Image, Button, TouchableOpacity, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-
-
+import Cabecalho from '../screen/tela3';
 
 export default () => {
-  
   const navigation = useNavigation();
-  return (
-    <View>
-      <Cabecalho></Cabecalho>
-      <View style={styles.container}>
-        <Text style={styles.text}>
-          Bem vindo ao Sustenta Água, seu calculador de gasto de água e
-          estabelecimento de metas!
-        </Text>
 
+  return (
+    <View style={styles.container}>
+      <Cabecalho></Cabecalho>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
         <Image
           style={styles.image}
           source={require("../../assets/savingWater.png")}
         ></Image>
+        <Text style={styles.text}>
+          Bem-vindo ao Sustenta Água, seu calculador de gasto de água e
+          estabelecimento de metas!
+        </Text>
         <Text style={styles.text2}>
           Navegue pelo aplicativo! Eis as opções: você pode ver as metas da ONU
           para a economia de água até 2050 e pode entrar na página da
           calculadora sustentável.
         </Text>
 
-        <Button
-          title="Metas da ONU - 2050"
+        <TouchableOpacity
+          style={styles.button}
           onPress={() => navigation.navigate("Notícias")}
-        ></Button>
-        <View style={{ top: 20 }}>
-          <Button
-            title="Calculadora Sustentável"
-            onPress={() => navigation.navigate("Calculadora Sustentável")}
-          ></Button>
-        </View>
+        >
+          <Text style={styles.buttonText}>Metas da ONU - 2050</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, { marginTop: 20 }]}
+          onPress={() => navigation.navigate("Calculadora Sustentável")}
+        >
+          <Text style={styles.buttonText}>Calculadora Sustentável</Text>
+        </TouchableOpacity>
+      </ScrollView>
+
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
       </View>
     </View>
   );
@@ -45,6 +47,11 @@ export default () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    backgroundColor: "#fff",
+  },
+  scrollContainer: {
+    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
@@ -52,43 +59,42 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 18,
     fontWeight: "bold",
-    top: 60,
+    marginVertical: 20,
+    textAlign: "center",
+    bottom:20
   },
   text2: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
-    bottom: 10,
+    marginVertical: 10,
+    textAlign: "center",
+    bottom:20
   },
   image: {
-    top: 30,
+    marginBottom: 20,
     height: 300,
     width: 300,
     resizeMode: "contain",
   },
-  header: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "blue", // Cor de fundo do cabeçalho
-    padding: 28,
+  button: {
+    backgroundColor: 'blue',
+    width: '100%',
+    height: 40,
+    borderRadius: 8,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
-  userInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  profileImage: {
-    width: 60,
-    height: 60,
-    borderRadius: 20, // Isso torna a imagem circular
-    marginRight: 10,
-  },
-  welcomeText: {
-    color: "white", // Cor do texto
+  buttonText: {
+    color: 'white',
     fontSize: 16,
   },
-  logo: {
-    width: 120,
-    height: 80,
-    resizeMode: "contain", // Isso garante que o logotipo se ajuste ao espaço
+  footer: {
+    backgroundColor: '#f0f0f0',
+    paddingVertical: 10,
+    alignItems: 'center',
+  },
+  footerText: {
+    color: '#333',
+    marginTop: 10,
   },
 });
