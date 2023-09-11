@@ -12,9 +12,9 @@ export default() =>{
     return (
         <Stack.Navigator>
             <Stack.Screen name="Login" component={login}></Stack.Screen>
+            <Stack.Screen name="Calculadora Sustentável" component={calculadora}></Stack.Screen>
             <Stack.Screen name='Notícias' component={noticias}></Stack.Screen>
             <Stack.Screen name='Página inicial' component={index}></Stack.Screen>
-            <Stack.Screen name="Calculadora Sustentável" component={calculadora}></Stack.Screen>
             <Stack.Screen name="Quem sou eu?" component={sobremim}></Stack.Screen>
             <Stack.Screen name='Cadastrando Seu Usuário' component={cadastrousuario}></Stack.Screen>
         </Stack.Navigator>

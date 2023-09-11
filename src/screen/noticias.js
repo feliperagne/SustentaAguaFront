@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     margin: 9,
     fontSize: 20,
     fontWeight: "bold",
-    fontFamily: 'Nunito-Light'
   },
   loadingContainer: {
     flex: 1,

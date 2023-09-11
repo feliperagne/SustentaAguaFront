@@ -1,97 +1,157 @@
-// Importar os componentes e funções necessários
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
+import { TouchableOpacity } from "react-native";
+import Cabecalho from "./tela3";
+import Cabecalhocalculadora from "./cabecalhocalculadora";
+import Modal from "react-native-modal"; // Importe o Modal
 
-
-// Renderizar a calculadora
 function App() {
+  const [valor, setValor] = useState("");
+  const [populacao, setPopulacao] = useState("");
+  const [resultado, setResultado] = useState(null);
+  const [isModalVisible, setModalVisible] = useState(false); // Estado para controlar a visibilidade do modal
+  const consumoMedio = 110;
 
-  // Definir os estados da calculadora
-const [valor, setValor] = useState('');
-const [populacao, setPopulacao] = useState('');
-const [resultado, setResultado] = useState('');
+  function calcularConsumo() {
+    if (!valor || !populacao) {
+      Alert.alert(
+        "Há campos vazios na calculadora",
+        "Por favor, preencha ambos os campos!"
+      );
+      return;
+    }
 
-// Definir o consumo médio por pessoa
-const consumoMedio = 110;
+    const valorInserido = parseFloat(valor);
+    const populacaoInserida = parseFloat(populacao);
 
-// Definir a função para calcular o consumo de água
-function calcularConsumo() {
-  // Obter os dados necessários
-  const valorInserido = parseFloat(valor);
-  const populacaoInserida = parseFloat(populacao);
+    const consumo = (valorInserido / 100 / consumoMedio) * 30 * populacaoInserida;
 
-  // Calcular o consumo de água
-  const consumo = valorInserido / 100 / consumoMedio * 30 * populacaoInserida;
-  const consumoFormatado = consumo.toFixed(2);
-  // Atualizar o estado do resultado
-  setResultado(consumoFormatado);
-}
+    const consumoFormatado = consumo.toFixed(2) * 1000;
 
+    setResultado(consumoFormatado)
+    setModalVisible(true); 
+  }
 
-
-
+  function limparCampos() {
+    setValor("");
+    setPopulacao("");
+    setResultado(null);
+  }
 
   return (
     <View style={styles.container}>
+      <Cabecalhocalculadora></Cabecalhocalculadora>
       <Text style={styles.titulo}>Calculadora Sustentável</Text>
 
       <TextInput
         style={styles.input}
+        keyboardType="number-pad"
         placeholder="Digite o valor que você pode gastar na conta de água no mês"
         onChangeText={(valor) => setValor(valor)}
+        value={valor}
       />
 
       <TextInput
         style={styles.input}
         placeholder="Digite a população da cidade"
+        keyboardType="number-pad"
         onChangeText={(populacao) => setPopulacao(populacao)}
+        value={populacao}
       />
 
-      <Button
-        style={styles.botao}
-        title="Calcular"
-        onPress={calcularConsumo}
-      />
+      <TouchableOpacity style={styles.button} onPress={() => calcularConsumo()}>
+        <Text style={styles.buttonText}>Calcular</Text>
+      </TouchableOpacity>
 
-      <Text style={styles.resultado}>
-        O consumo de água recomendado é de {resultado} m³ por mês.
-      </Text>
+     
+      <Modal isVisible={isModalVisible}>
+        <View style={styles.modalContent}>
+          <Text style={styles.resultadoModal}>
+            O consumo de água recomendado é de {resultado} litros por mês.
+          </Text>
+          <Button
+            title="Fechar"
+            onPress={() => {
+              setModalVisible(false); // Fecha o modal quando o botão é pressionado
+            }}
+          />
+        </View>
+      </Modal>
+
+      <View
+        style={{
+          top: 50,
+          width: "80%",
+          alignSelf: "center",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => limparCampos()}
+        >
+          <Text style={styles.buttonText}>Limpar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
 
-// Definir os estilos da calculadora
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "#f0f0f0",
   },
   titulo: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: "bold",
-    margin: 10,
+    marginVertical: 20,
+  },
+  button: {
+    backgroundColor: "blue",
+    width: "80%",
+    height: 40,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
   input: {
-    width: 200,
+    width: "80%",
     height: 40,
-    borderColor: "gray",
+    borderColor: "#ccc",
     borderWidth: 1,
-    padding: 10,
-  },
-  botao: {
-    width: 200,
-    height: 40,
-    backgroundColor: "blue",
-    color: "white",
-    fontWeight: "bold",
-    borderRadius: 5,
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+    backgroundColor: "#fff",
   },
   resultado: {
-    fontSize: 16,
-    margin: 10,
+    fontSize: 18,
+    margin: 20,
+    fontWeight: "bold",
+    color: "#007AFF",
+  },
+  // Estilos para o Modal
+  modalContent: {
+    backgroundColor: "white",
+    padding: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 4,
+  },
+  resultadoModal: {
+    fontSize: 18,
+    margin: 20,
+    fontWeight: "bold",
+    color: "#007AFF",
   },
 });
 
-// Exportar o componente App
 export default App;

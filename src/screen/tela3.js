@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Cabecalho = () => {
-  const urlAPI = 'https://146c-201-49-195-24.ngrok-free.app/api/logout';
+  const urlAPI = 'https://795c-201-49-195-24.ngrok-free.app/api/logout';
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
 
@@ -12,8 +12,9 @@ const Cabecalho = () => {
     async function loadUsername() {
       try {
         const storedUsername = await AsyncStorage.getItem('username');
-        if (storedUsername) {
-          setUsername(storedUsername);
+        const usuarioMaiusculo = storedUsername.toUpperCase()
+        if (usuarioMaiusculo) {
+          setUsername(usuarioMaiusculo);
         }
       } catch (error) {
         console.error(error);

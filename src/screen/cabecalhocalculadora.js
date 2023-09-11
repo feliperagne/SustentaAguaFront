@@ -7,21 +7,18 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
-const cabecalho2 = () => {
+const cabecalhocalculadora = () => {
 
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>
         <Image style={styles.logo} source={require('../../assets/agua.webp')} />
-        <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22, left:5 }}>
           Sustenta Água
         </Text>
         <Image style={styles.logo2} source={require('../../assets/agua.webp')} />
       </View>
       <View style={styles.news}>
-        <Text
-        style={{fontSize:23, fontWeight: 'bold'}}
-        >Notícias</Text>
       </View>
     </View>
   );
@@ -56,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default cabecalho2;
+export default cabecalhocalculadora;

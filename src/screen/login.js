@@ -8,7 +8,7 @@ const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://146c-201-49-195-24.ngrok-free.app/api'
+  const urlAPI = 'https://795c-201-49-195-24.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
