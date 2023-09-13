@@ -3,11 +3,12 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Ima
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://795c-201-49-195-24.ngrok-free.app/api'
+  const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
@@ -59,78 +60,82 @@ const Login = ({navigation}) => {
   return (
     <View style={styles.pageContainer}>
     <View style={styles.container}>
-      <View style={styles.imageContainer}>
-        <Image source={require('../../assets/logo.png')} style={styles.logo} />
-      </View>
-      <Text style={styles.title}>Bem-vindo ao Sustenta Água!</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Nome de Usuário"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={styles.input}
-        placeholder="Senha"
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry
-      />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Login</Text>
-      </TouchableOpacity>
-    </View>
-    <View style={styles.footer}>
-        <View style={{ flexDirection: 'row' }}>
-          <TouchableOpacity
-            onPress={() => navigation.navigate('Cadastrando Seu Usuário')}
-          >
-            <Text style={styles.linkText}>Não possui seu usuário? Crie agora!</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={{ marginLeft: 10 }}
-            onPress={() => navigation.navigate('Quem sou eu?')}
-          >
-            <Text style={styles.linkText}>Sobre o criador</Text>
-          </TouchableOpacity>
+        <View style={styles.imageContainer}>
+          <Image source={require('../../assets/logo.png')} style={styles.logo} />
         </View>
-        <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
-      </View>
+        <Text style={styles.title}>Bem-vindo ao Sustenta Água!</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome de Usuário"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Senha"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry
+        />
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+     
     </View>
     
-  );
+    <View style={styles.footer}>
+      <View style={{ flexDirection: 'row' }}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('Cadastrando Seu Usuário')}
+        >
+          <Text style={styles.linkText}>Não possui seu usuário? Crie agora!</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{ marginLeft: 10 }}
+          onPress={() => navigation.navigate('Quem sou eu?')}
+        >
+          <Text style={styles.linkText}>Sobre o criador</Text>
+        </TouchableOpacity>
+      </View>
+      <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
+    </View>
+    
+  </View>
+);
 };
 
 const styles = StyleSheet.create({
-   pageContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#dddd',
-    resizeMode: 'contain',
-    borderWidth: 1,          // Adicione uma borda
-    borderColor: 'gray',    // Cor da borda
-    borderRadius: 10,       // Raio dos cantos do quadrado
-  },
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    backgroundColor: '#f0f0f0',
-  },
+pageContainer: {
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#f0f0f0',
+},
+container: {
+  width: '90%',  // Largura do quadrado menor
+  borderWidth: 2,
+  borderColor: 'gray',
+  borderRadius: 15,
+  alignItems: 'center', // Centralizar o conteúdo horizontalmente
+  justifyContent:'center',
+  padding:60,
+  backgroundColor:'#4583'
+},
+contentContainer: {
+  padding: 60,
+},
   imageContainer: {
-    position: 'relative',
+    position: 'sticky',
     bottom:100
   },
   logo: {
     resizeMode: 'contain',
     width: 100,
     height: 100,
+    top: 62,
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     marginBottom: 20,
   },
   input: {

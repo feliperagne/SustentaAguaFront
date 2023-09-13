@@ -15,13 +15,12 @@ export default () => {
           source={require("../../assets/savingWater.png")}
         ></Image>
         <Text style={styles.text}>
-          Bem-vindo ao Sustenta Água, seu calculador de gasto de água e
-          estabelecimento de metas!
+          Bem-vindo ao Sustenta Água, seu calculador de gasto de água e noticiário sobre o consumo mundial de água
         </Text>
         <Text style={styles.text2}>
           Navegue pelo aplicativo! Eis as opções: você pode ver as metas da ONU
           para a economia de água até 2050 e pode entrar na página da
-          calculadora sustentável.
+          calculadora sustentável:
         </Text>
 
         <TouchableOpacity
@@ -51,7 +50,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
   },
   scrollContainer: {
-    flexGrow: 1,
     justifyContent: "center",
     alignItems: "center",
     paddingHorizontal: 20,
@@ -89,12 +87,16 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   footer: {
-    backgroundColor: '#f0f0f0',
-    paddingVertical: 10,
-    alignItems: 'center',
+    position: 'absolute',
+    bottom: 0,
+    width: '110%',
+    height:50,
+    backgroundColor: '#7885',
+    alignContent:'center',
+    justifyContent:'center'
   },
   footerText: {
     color: '#333',
-    marginTop: 10,
+    left:50
   },
 });

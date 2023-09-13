@@ -4,7 +4,7 @@ import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 const Cabecalho = () => {
-  const urlAPI = 'https://795c-201-49-195-24.ngrok-free.app/api/logout';
+  const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout';
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
 
@@ -44,7 +44,7 @@ const Cabecalho = () => {
       <View style={styles.userInfo}>
         <Image
           style={styles.logo}
-          source={require('../../assets/agua.webp')}
+          source={require('../../assets/logo.png')}
         />
         <Text style={{ fontWeight: 'bold', fontSize: 27 }}>Sustenta Água</Text>
       </View>
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#5887', // Cor de fundo do cabeçalho
+    backgroundColor: '#5d7afc', // Cor de fundo do cabeçalho
     padding: 23,
     paddingHorizontal:47
   },
@@ -76,10 +76,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logout: {
-    textDecorationLine: 'underline',
-    color: '#801',
+    color: '#811',
     left: 50,
-    top: 24
+    top: 24,
+    fontSize: 16,
   },
   buttonText: {
     color: 'white',
@@ -91,10 +91,10 @@ const styles = StyleSheet.create({
   },
   welcomeText: {
     color: 'white', // Cor do texto
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: 'bold',
     bottom: 5,
-    left: 25,
+    left: 9,
     top: 11
   },
   logo: {

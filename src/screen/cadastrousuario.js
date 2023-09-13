@@ -19,7 +19,7 @@ export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = "https://795c-201-49-195-24.ngrok-free.app/api/user";
+  const urlAPI = "https://0cd9-201-49-195-24.ngrok-free.app/api/user";
   const navigation = useNavigation();
   
   //const [profile_image, setProfile_image] = useState(null);
