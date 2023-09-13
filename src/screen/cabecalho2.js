@@ -2,26 +2,53 @@ import { View, Image, Text, StyleSheet, TouchableOpacity, Alert } from "react-na
 import React from "react";
 import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from "@react-navigation/native";
 
 
 
 
 
 const cabecalho2 = () => {
+  const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout'
+  const navigation = useNavigation()
+
+
+  async function sair(navigation) {
+    try {
+      const response = await axios.post(urlAPI);
+      if (response.status === 200) {
+        Alert.alert('Logout bem-sucedido', 'Você saiu com sucesso.');
+        navigation.navigate('Login'); 
+      } else {
+        Alert.alert('Erro no logout', 'Ocorreu um erro durante o logout.');
+      }
+    } catch (error) {
+      console.error('Erro:', error);
+      Alert.alert('Erro no logout', 'Ocorreu um erro durante o logout.');
+    }
+  };
+
+
 
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>
-        <Image style={styles.logo} source={require('../../assets/agua.webp')} />
-        <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22 }}>
+        <Image style={styles.logo} source={require('../../assets/logo.png')} />
+        <Text style={{ fontWeight: 'bold', fontSize: 30, left:17}}>
           Sustenta Água
         </Text>
-        <Image style={styles.logo2} source={require('../../assets/agua.webp')} />
+        <Image style={styles.logo2} source={require('../../assets/logo.png')} />
       </View>
       <View style={styles.news}>
         <Text
-        style={{fontSize:23, fontWeight: 'bold'}}
+        style={{fontSize:23, fontWeight: 'bold', left:30}}
         >Notícias</Text>
+        <TouchableOpacity
+        onPress={()=> sair(navigation)}
+        style={{fontWeight: 'bold', left:115, }}
+        >
+          <Text style={{color:'#fa3b22', textDecorationLine:'underline',fontSize:23}}>Logout</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -30,9 +57,9 @@ const cabecalho2 = () => {
 const styles = StyleSheet.create({
   header: {
     flexDirection: 'column', // Alterado para 'column' para empilhar elementos verticalmente
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#5887',
+    backgroundColor: '#5d7afc',
     padding: 20,
   },
   userInfo: {
@@ -53,6 +80,9 @@ const styles = StyleSheet.create({
   news: {
     marginTop: 10,
     right:10,
+    flexDirection:'row',
+    justifyContent:'space-between',
+    alignItems:'center',
   },
 });
 
