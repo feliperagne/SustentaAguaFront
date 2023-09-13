@@ -12,11 +12,11 @@ const cabecalhocalculadora = () => {
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>
-        <Image style={styles.logo} source={require('../../assets/agua.webp')} />
+        <Image style={styles.logo} source={require('../../assets/logo.png')} />
         <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22, left:5 }}>
           Sustenta Água
         </Text>
-        <Image style={styles.logo2} source={require('../../assets/agua.webp')} />
+        <Image style={styles.logo2} source={require('../../assets/logo.png')} />
       </View>
       <View style={styles.news}>
       </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column', // Alterado para 'column' para empilhar elementos verticalmente
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#5887',
+    backgroundColor: '#5d7afc',
     padding: 20,
   },
   userInfo: {

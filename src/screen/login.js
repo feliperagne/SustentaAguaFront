@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity,Image } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image, ImageBackground } from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
@@ -31,7 +30,7 @@ const Login = ({navigation}) => {
           throw errorMessages.join('\n'); // Junte todos os erros em uma única string
         }
       }
-      throw 'Ocorreu um erro ao fazer o login';
+      throw new Error('Ocorreu um erro ao fazer o login');
     }
   }
 
@@ -58,53 +57,77 @@ const Login = ({navigation}) => {
   }
   
   return (
+    <View style={styles.pageContainer}>
     <View style={styles.container}>
+      <View style={styles.imageContainer}>
+        <Image source={require('../../assets/logo.png')} style={styles.logo} />
+      </View>
       <Text style={styles.title}>Bem-vindo ao Sustenta Água!</Text>
       <TextInput
         style={styles.input}
         placeholder="Nome de Usuário"
         value={username}
-        onChangeText={text => setUsername(text)}
+        onChangeText={(text) => setUsername(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Senha"
         value={password}
-        onChangeText={text => setPassword(text)}
+        onChangeText={(text) => setPassword(text)}
         secureTextEntry
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Login</Text>
       </TouchableOpacity>
-
-
-      <View style={styles.footer}>
-        <View style={{flexDirection:'row'}}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('Cadastrando Seu Usuário')}
-        >
-          <Text style={styles.linktext}>Não possui seu usuário? Crie agora!</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-        style={{marginLeft:10}}
-          onPress={() => navigation.navigate('Quem sou eu?')}
-        >
-          <Text style={styles.linktext}>Sobre o criador</Text>
-        </TouchableOpacity>
+    </View>
+    <View style={styles.footer}>
+        <View style={{ flexDirection: 'row' }}>
+          <TouchableOpacity
+            onPress={() => navigation.navigate('Cadastrando Seu Usuário')}
+          >
+            <Text style={styles.linkText}>Não possui seu usuário? Crie agora!</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{ marginLeft: 10 }}
+            onPress={() => navigation.navigate('Quem sou eu?')}
+          >
+            <Text style={styles.linkText}>Sobre o criador</Text>
+          </TouchableOpacity>
         </View>
-      <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
+        <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
       </View>
     </View>
+    
   );
 };
 
 const styles = StyleSheet.create({
+   pageContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: '#dddd',
+    resizeMode: 'contain',
+    borderWidth: 1,          // Adicione uma borda
+    borderColor: 'gray',    // Cor da borda
+    borderRadius: 10,       // Raio dos cantos do quadrado
+  },
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: 20,
-    
+    backgroundColor: '#f0f0f0',
+  },
+  imageContainer: {
+    position: 'relative',
+    bottom:100
+  },
+  logo: {
+    resizeMode: 'contain',
+    width: 100,
+    height: 100,
   },
   title: {
     fontSize: 24,
@@ -114,7 +137,7 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 40,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#000',
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 10,
@@ -127,11 +150,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-    linktext:{
-      color: 'blue',
-      textDecorationLine: 'underline',
-      marginBottom: 5,
-    },
+  linkText: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+    marginBottom: 5,
+    fontSize:16
+  },
   buttonText: {
     color: 'white',
     fontSize: 16,
@@ -139,15 +163,15 @@ const styles = StyleSheet.create({
   footer: {
     position: 'absolute',
     bottom: 0,
-    width: '110%',
+    width: '114%',
     height: '10%',
-    backgroundColor: '#7885',
+    backgroundColor: '#1345',
     paddingVertical: 10,
     alignItems: 'center',
   },
   footerText: {
     color: '#000',
-    marginTop:20,
+    marginTop: 20,
   },
 });
 export default Login;

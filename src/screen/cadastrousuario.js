@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,14 +6,13 @@ import {
   Button,
   TouchableOpacity,
   Alert,
-  Image
+  Image,
+  ScrollView,
+  StyleSheet
 } from "react-native";
-import { StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
-import { useState } from "react";
 import * as ImagePicker from 'expo-image-picker';
-import { ScrollView } from "react-native";
 
 
 export default () => {
@@ -39,7 +38,7 @@ export default () => {
       setProfile_image(result.assets[0].uri);
     }
   };*/
-  async function cadastrar(username, email,password) {
+  async function cadastrar (username, email,password) {
 
     const usernameMinusculo = username.toLowerCase();
 
@@ -63,7 +62,7 @@ export default () => {
           throw errorMessages.join('\n'); // Junte todos os erros em uma única string
         }
       }
-      throw 'Ocorreu um erro ao fazer o login';
+      throw new Error('Ocorreu um erro ao fazer o login');
     }
   }
 
