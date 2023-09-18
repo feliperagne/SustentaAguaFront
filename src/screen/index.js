@@ -27,7 +27,7 @@ export default () => {
           style={styles.button}
           onPress={() => navigation.navigate("Notícias")}
         >
-          <Text style={styles.buttonText}>Noticiário da Onu</Text>
+          <Text style={styles.buttonText}>Noticiário / Metas da Onu</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={[styles.button, { marginTop: 20 }]}

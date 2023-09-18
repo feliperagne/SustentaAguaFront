@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, ScrollView, Image, Linking, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, ScrollView, Image, Linking, TouchableOpacity, Button } from "react-native";
 import Cabecalho2 from "./cabecalho2";
-
+import { useNavigation } from "@react-navigation/native";
 export default () => {
- 
+ const navigation =  useNavigation()
   return (
     <View style={styles.pageContainer}>
       <Cabecalho2 />
@@ -109,6 +109,12 @@ export default () => {
   </View>
 </View>
 
+      <TouchableOpacity
+      onPress={() => navigation.goBack()}
+      style={styles.button}
+      >
+        <Text style={styles.buttonText}>Voltar para página inicial</Text>
+      </TouchableOpacity>
       </ScrollView>
       <Footer />
     </View>
@@ -224,5 +230,19 @@ const styles = StyleSheet.create({
   footerText: {
     color: "#fff",
     fontSize: 18, 
+  },
+  button: {
+    backgroundColor: "blue",
+    width: "50%",
+    height: 40,
+    borderRadius: 8,
+    justifyContent: "center",
+    alignItems: "center",
+    left:'25%',
+    marginBottom:10
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 });

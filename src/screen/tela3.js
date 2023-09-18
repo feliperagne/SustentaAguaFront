@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
+ 
 const Cabecalho = () => {
   const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout';
   const navigation = useNavigation();
