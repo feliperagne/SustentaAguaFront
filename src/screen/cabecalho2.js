@@ -4,14 +4,9 @@ import axios from "axios";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 
-
-
-
-
-const cabecalho2 = () => {
+const Cabecalho2 = () => {
   const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout'
   const navigation = useNavigation()
-
 
   async function sair(navigation) {
     try {
@@ -28,27 +23,20 @@ const cabecalho2 = () => {
     }
   };
 
-
-
   return (
     <View style={styles.header}>
       <View style={styles.userInfo}>
         <Image style={styles.logo} source={require('../../assets/logo.png')} />
-        <Text style={{ fontWeight: 'bold', fontSize: 30, left:17}}>
+        <Text style={styles.title}>
           Sustenta Água
         </Text>
-        <Image style={styles.logo2} source={require('../../assets/logo.png')} />
+        <Image style={styles.logo} source={require('../../assets/logo.png')} />
       </View>
       <View style={styles.news}>
-        <Text
-        style={{fontSize:23, fontWeight: 'bold', left:30}}
-        >Notícias</Text>
-        <TouchableOpacity
-        onPress={()=> sair(navigation)}
-        style={{fontWeight: 'bold', left:115, }}
-        >
-          <Text style={{color:'#fa3b22', textDecorationLine:'underline',fontSize:23}}>Logout</Text>
-        </TouchableOpacity>
+        <Text style={styles.newsTitle}>Notícias</Text>
+       {/* <TouchableOpacity onPress={() => sair(navigation)}>
+          <Text style={styles.logout}>Logout</Text>
+        </TouchableOpacity> */}
       </View>
     </View>
   );
@@ -56,11 +44,13 @@ const cabecalho2 = () => {
 
 const styles = StyleSheet.create({
   header: {
-    flexDirection: 'column', // Alterado para 'column' para empilhar elementos verticalmente
+    flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#5d7afc',
-    padding: 20,
+    paddingVertical: 20,
+    borderBottomWidth: 2,
+    borderBottomColor: '#fff',
   },
   userInfo: {
     flexDirection: 'row',
@@ -70,20 +60,31 @@ const styles = StyleSheet.create({
     width: 70,
     height: 50,
     resizeMode: 'contain',
+    margin: 10,
   },
-  logo2: {
-    width: 70,
-    height: 50,
-    resizeMode: 'contain',
-    marginLeft: 40, // Alterado para marginLeft para dar espaço entre os logos
+  title: {
+    fontWeight: 'bold',
+    fontSize: 30,
+    color: '#fff',
   },
   news: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
     marginTop: 10,
-    right:10,
-    flexDirection:'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+  },
+  newsTitle: {
+    fontSize: 23,
+    fontWeight: 'bold',
+    color: '#fff',
+  },
+  logout: {
+    color: '#fa3b22',
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    fontSize: 23,
   },
 });
 
-export default cabecalho2;
+export default Cabecalho2;

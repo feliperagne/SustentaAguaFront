@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
 const Cabecalho = () => {
   const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout';
   const navigation = useNavigation();
@@ -41,18 +42,18 @@ const Cabecalho = () => {
 
   return (
     <View style={styles.header}>
-      <View style={styles.userInfo}>
+      <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
           source={require('../../assets/logo.png')}
         />
-        <Text style={{ fontWeight: 'bold', fontSize: 27 }}>Sustenta Água</Text>
+        <Text style={styles.logoText}>Sustenta Água</Text>
       </View>
-      <View style={{ flexDirection: 'column' }}>
-        <Text style={styles.welcomeText}>Bem Vindo, {username}!</Text>
-        <TouchableOpacity onPress={() => sair(navigation)}>
-          <Text style={styles.logout}>Logout</Text>
-        </TouchableOpacity>
+      <View style={{flexDirection:'column', left:20}}>
+      <Text style={{fontSize:15,fontWeight:'bold', color:'#fff'}}>Bem vindo, {username}!</Text>
+      <TouchableOpacity onPress={() => sair(navigation)}>
+        <Text style={styles.logout}>Logout</Text>
+      </TouchableOpacity>
       </View>
     </View>
   )
@@ -67,42 +68,29 @@ const styles = StyleSheet.create({
     padding: 23,
     paddingHorizontal:47
   },
-  button: {
-    backgroundColor: 'blue',
-    width: '100%',
-    height: 40,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
   logout: {
-    color: '#811',
-    left: 50,
-    top: 24,
-    fontSize: 16,
-  },
-  buttonText: {
-    color: 'white',
+    color: 'red',
     fontSize: 16,
   },
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
   },
-  welcomeText: {
-    color: 'white', // Cor do texto
-    fontSize: 15,
-    fontWeight: 'bold',
-    bottom: 5,
-    left: 9,
-    top: 11
+  logoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   logo: {
-    width: 70,
+    width: 50,
     height: 50,
     resizeMode: 'contain',
-    right: 15
+    marginRight: 10
   },
+  logoText: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold'
+  }
 });
 
 export default Cabecalho;

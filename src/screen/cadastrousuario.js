@@ -3,17 +3,15 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   TouchableOpacity,
   Alert,
   Image,
-  ScrollView,
-  StyleSheet
+  StyleSheet,
+  ScrollView
 } from "react-native";
 import { useNavigation } from "@react-navigation/core";
 import axios from "axios";
 import * as ImagePicker from 'expo-image-picker';
-
 
 export default () => {
   const [username, setUsername] = useState("");
@@ -21,25 +19,8 @@ export default () => {
   const [email, setEmail] = useState("");
   const urlAPI = "https://0cd9-201-49-195-24.ngrok-free.app/api/user";
   const navigation = useNavigation();
-  
-  //const [profile_image, setProfile_image] = useState(null);
 
- /* const pickImage = async () => {
-    let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.All,
-      allowsEditing: true,
-      aspect: [4, 3],
-      quality: 1,
-    });
-
-    console.log(result);
-
-    if (!result.canceled) {
-      setProfile_image(result.assets[0].uri);
-    }
-  };*/
-  async function cadastrar (username, email,password) {
-
+  async function cadastrar(username, email, password) {
     const usernameMinusculo = username.toLowerCase();
 
     try {
@@ -67,7 +48,6 @@ export default () => {
   }
 
   async function handlesubmit() {
-
     if (/[A-Z]/.test(username)) {
       Alert.alert("Erro de cadastro", "O username deve conter apenas letras minúsculas.");
       return; // Saia da função se houver letras maiúsculas no username
@@ -76,9 +56,9 @@ export default () => {
     try {
       const cadastro = await cadastrar(username, email, password);
       if(cadastro){
-      console.log('Cadastro Feito!', cadastro);
-      Alert.alert('Cadastro Feito!');
-      navigation.navigate('Login');
+        console.log('Cadastro Feito!', cadastro);
+        Alert.alert('Cadastro Feito!');
+        navigation.navigate('Login');
       }
     } catch (error) {
       console.log('Erro de cadastro!', error);
@@ -92,104 +72,108 @@ export default () => {
       }
     }
   }
-  
-  return (
-    <ScrollView>
-    <View>
-      <Text style={styles.textoinicial}>Muito bom te ver por aqui!</Text>
-      <Text style={styles.textoinicial2}>Agora crie seu usuário:</Text>
 
-      <View
-        style={{
-          paddingHorizontal: 20,
-          flex: 1,
-          marginTop: 50,
-          flexDirection: "column",
-          margin: 15,
-        }}
-      >
-        <TextInput
-          style={styles.input}
-          placeholder="Insira o nome que seu usuário terá"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-        ></TextInput>
-        <TextInput
-          style={styles.input}
-          placeholder="Insira seu email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        ></TextInput>
-        <TextInput
-          style={styles.input}
-          placeholder="Insira uma senha para você"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        ></TextInput>
-          {/* <TouchableOpacity
-            style={styles.button}
-            onPress={() => pickImage()}
-          >
-            <Text style={styles.buttonText}>Escolher Imagem</Text>
-          </TouchableOpacity> 
-           <View style={{justifyContent:"center", alignItems:"center", top:6}}>
-          {profile_image && <Image source={{ uri: profile_image }} style={{ width: 200, height: 200 }} />}
-          </View>  */}
-        <TouchableOpacity style={styles.button} onPress={() => handlesubmit()}>
-          <Text style={styles.buttonText}>Cadastrar</Text>
-        </TouchableOpacity>
-        <View>
+  return (
+    <ScrollView contentContainerStyle={styles.pagecontainer}>
+      <View style={styles.container}>
+        <Text style={styles.textoinicial}>Muito bom te ver por aqui!</Text>
+        <Text style={styles.textoinicial2}>Agora crie seu usuário:</Text>
+
+        <View style={styles.container2}>
+          <TextInput
+            style={styles.input}
+            placeholder="Insira o nome que seu usuário terá"
+            value={username}
+            onChangeText={(text) => setUsername(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Insira seu email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Insira uma senha para você"
+            value={password}
+            keyboardType="number-pad"
+            onChangeText={(text) => setPassword(text)}
+          />
+          <TouchableOpacity style={styles.button} onPress={() => handlesubmit()}>
+            <Text style={styles.buttonText}>Cadastrar</Text>
+          </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
               setUsername("");
               setEmail("");
               setPassword("");
-             // setProfile_image('')
-              }}
+            }}
           >
             <Text style={styles.buttonText}>Limpar</Text>
           </TouchableOpacity>
-         
         </View>
       </View>
-    </View>
     </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
+  pagecontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  container: {
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+    backgroundColor: "#ffffff",
+    borderWidth: 2,
+    borderColor: "#000000",
+    borderRadius: 10,
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    margin: 20
+  },
+  container2: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   textoinicial: {
     fontWeight: "bold",
-    fontSize: 26,
-    justifyContent: "center",
-    margin: 10,
-    alignItems: "center",
-    alignSelf: "center",
-    marginTop: 100,
+    fontSize: 22,
+    margin: 25,
+    textAlign: 'center'
   },
   textoinicial2: {
     fontWeight: "bold",
-    fontSize: 26,
-    justifyContent: "center",
-    margin: 10,
-    alignItems: "center",
-    alignSelf: "center",
-    marginBottom: 30,
+    fontSize: 24,
+    margin: 20,
+    textAlign: 'center'
   },
   input: {
-    width: "100%",
-    height: 40,
+    width: 260,
+    height: 50,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     marginBottom: 15,
     paddingHorizontal: 10,
     margin: 5,
+    backgroundColor: '#f0f0f0'
   },
   button: {
     backgroundColor: "blue",
-    width: "100%",
+    width: 180,
     height: 40,
     borderRadius: 8,
     justifyContent: "center",
@@ -200,4 +184,4 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 16,
   },
-});
+})
