@@ -2,25 +2,24 @@ import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, TextInput, Button, Alert, TouchableOpacity } from "react-native";
 import Cabecalhocalculadora from "./cabecalhocalculadora";
 import Modal from "react-native-modal";
-import DropDownPicker from "react-native-dropdown-picker"; // Importe o DropDownPicker
 import axios from "axios";
-import Picker from "react-native-picker-select";
-import Icon from "react-native-vector-icons/FontAwesome";
+import { Picker } from "@react-native-picker/picker";
+
 
 function App() {
   const [valor, setValor] = useState("");
   const [populacao, setPopulacao] = useState("");
+  const [consumoMedio, setConsumoMedio] = useState("")
   const [resultado, setResultado] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
-  const consumoMedio = 110;
-  const URLapi = "https://0cd9-201-49-195-24.ngrok-free.app/api/estados";
+  const URLapi = "https://d815-179-127-67-47.ngrok-free.app/api/estados";
   const [estados, setEstados] = useState([]);
-  const [estadoSelecionado, setEstadoSelecionado] = useState("");
+  const [estadoSelecionado, setEstadoSelecionado] = useState([]);
 
   const getEstados = async () => {
     try {
       const response = await axios.get(URLapi);
-      const data = response.data;
+      const data = response.data.data; //colocar uma data a mais para acessar o array real!
       setEstados(data);
     } catch (error) {
       console.error("Erro de Listagem!", error);
@@ -31,23 +30,37 @@ function App() {
     getEstados();
   }, []);
 
+
+  const getPopulacaoEConsumo = async (estadoId) => {
+    try {
+      const response = await axios.get(`https://81a2-179-127-67-47.ngrok-free.app/listarPopulacaoEConsumo/${estadoId}`);
+      const data = response.data.data; //retornar o array real (puro)
+      console.log(data)
+      // Defina os valores de população e consumo médio com base nos dados retornados
+      setPopulacao(data.populacao); // Substitua 'populacao' pelo campo real do objeto retornado
+      setConsumoMedio(data.consumoMedio); // Substitua 'consumoMedio' pelo campo real do objeto retornado
+    } catch (error) {
+      console.error("Erro ao buscar dados de população e consumo médio", error);
+    }
+  };
+  
+  
+
+
+
   function calcularConsumo() {
-    if (!valor || !populacao) {
+    if (!valor || !estadoSelecionado) {
       Alert.alert(
         "Há campos vazios na calculadora",
         "Por favor, preencha ambos os campos!"
       );
       return;
     }
-
+    getPopulacaoEConsumo(estadoSelecionado)
     const valorInserido = parseFloat(valor);
-    const populacaoInserida = parseFloat(populacao);
-
-    const consumo =
-      (valorInserido / 100 / consumoMedio) * 30 * populacaoInserida;
-
+   // const populacaoInserida = parseFloat(populacao);
+    const consumo =(valorInserido / 100 / consumoMedio) * 30 * populacaoInserida;
     const consumoFormatado = consumo.toFixed(2) * 1000;
-
     setResultado(consumoFormatado);
     setModalVisible(true);
   }
@@ -72,17 +85,18 @@ function App() {
           value={valor}
         />
 
-        <MyDropDownPicker
-          items={estados.length> 0 ? estados.map((estado) => ({
-            label: estado.nome,
-            value: estado.id,
-          })) : []}
-          defaultValue={estadoSelecionado}
-          containerStyle={styles.dropDownContainer}
-          style={styles.dropDown}
-          itemStyle={styles.dropDownItem}
-          onChangeItem={(item) => setEstadoSelecionado(item.value)}
-        />
+           <Picker
+          selectedValue={estadoSelecionado}
+          style={styles.dropDownContainer}
+          onValueChange={(itemValue, itemIndex) => setEstadoSelecionado(itemValue)}
+        >
+          <Picker.Item label="Selecione o estado que você reside" value="" />
+          {estados.map((estado) => (
+            <Picker.Item label={estado.nome} value={estado.id} key={estado.id} />
+          ))}
+        </Picker> 
+
+
 
         <TouchableOpacity style={styles.button} onPress={() => calcularConsumo()}>
           <Text style={styles.buttonText}>Calcular</Text>
@@ -137,16 +151,15 @@ const styles = StyleSheet.create({
   footer: {
     position: "absolute",
     bottom: 0,
-    width: "110%",
-    height: 65,
+    width: "100%",
+    height: 50,
     backgroundColor: "#7885",
-    paddingVertical: 10,
+    paddingVertical:15,
     alignItems: "center",
   },
   footerText: {
     color: "#000",
-    marginTop: 20,
-    right: 10,
+    textAlign:'center',
   },
   titulo: {
     fontSize: 24,
@@ -212,11 +225,3 @@ const styles = StyleSheet.create({
 
 export default App;
 
-// Renomeie sua função personalizada para MyDropDownPicker
-function MyDropDownPicker(props) {
-  return (
-    <DropDownPicker
-      {...props}
-    />
-  );
-}

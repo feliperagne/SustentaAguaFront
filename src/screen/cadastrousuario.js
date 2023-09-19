@@ -17,7 +17,7 @@ export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = "https://0cd9-201-49-195-24.ngrok-free.app/api/user";
+  const urlAPI = " https://d815-179-127-67-47.ngrok-free.app/api/user";
   const navigation = useNavigation();
 
   async function cadastrar(username, email, password) {
