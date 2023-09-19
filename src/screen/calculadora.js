@@ -8,14 +8,20 @@ import { Picker } from "@react-native-picker/picker";
 
 function App() {
   const [valor, setValor] = useState("");
-  const [populacao, setPopulacao] = useState("");
-  const [consumoMedio, setConsumoMedio] = useState("")
+  const [habitante, setHabitante] = useState("");
+  const [consumoMedioEstado, setConsumoMedioEstado] = useState("")
   const [resultado, setResultado] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
-  const URLapi = "https://d815-179-127-67-47.ngrok-free.app/api/estados";
+  const URLapi = "https://81a2-179-127-67-47.ngrok-free.app/api/estados";
   const [estados, setEstados] = useState([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState([]);
 
+   useEffect(() => {
+    console.log('Habitantes do estado :', habitante);
+    console.log('Consumo Médio Estado escolhido :', consumoMedioEstado);
+  }, [habitante, consumoMedioEstado]);
+  
+ 
   const getEstados = async () => {
     try {
       const response = await axios.get(URLapi);
@@ -31,16 +37,19 @@ function App() {
   }, []);
 
 
-  const getPopulacaoEConsumo = async (estadoId) => {
+  const handleEstadoSelecionado = async (itemValue) => {
+    setEstadoSelecionado(itemValue);
+
+    // Carregue os valores de população e consumo médio aqui
     try {
-      const response = await axios.get(`https://81a2-179-127-67-47.ngrok-free.app/listarPopulacaoEConsumo/${estadoId}`);
-      const data = response.data.data; //retornar o array real (puro)
-      console.log(data)
-      // Defina os valores de população e consumo médio com base nos dados retornados
-      setPopulacao(data.populacao); // Substitua 'populacao' pelo campo real do objeto retornado
-      setConsumoMedio(data.consumoMedio); // Substitua 'consumoMedio' pelo campo real do objeto retornado
+      const response = await axios.get(`https://81a2-179-127-67-47.ngrok-free.app/api/listarPopulacaoEConsumo/${itemValue}`);
+      const data = response.data.data; // Retornar o array real (puro)
+      
+      setHabitante(data.populacao);
+      setConsumoMedioEstado(data.consumoMedio);
     } catch (error) {
       console.error("Erro ao buscar dados de população e consumo médio", error);
+      Alert.alert('Erro!', 'Erro ao buscar dados de população e consumo médio!')
     }
   };
   
@@ -48,7 +57,7 @@ function App() {
 
 
 
-  function calcularConsumo() {
+  async function calcularConsumo() {
     if (!valor || !estadoSelecionado) {
       Alert.alert(
         "Há campos vazios na calculadora",
@@ -56,19 +65,29 @@ function App() {
       );
       return;
     }
-    getPopulacaoEConsumo(estadoSelecionado)
-    const valorInserido = parseFloat(valor);
-   // const populacaoInserida = parseFloat(populacao);
-    const consumo =(valorInserido / 100 / consumoMedio) * 30 * populacaoInserida;
-    const consumoFormatado = consumo.toFixed(2) * 1000;
-    setResultado(consumoFormatado);
-    setModalVisible(true);
+  
+    try {
+        const valorInserido = parseFloat(valor);
+        const populacaoEstado = parseFloat(habitante);
+        const consumoDoEstado = parseFloat(consumoMedioEstado);
+        const consumo = (valorInserido / 100 / consumoDoEstado) * 30 * populacaoEstado;
+        const consumoFormatado = consumo.toFixed(2) * 1000;
+        setResultado(consumoFormatado);
+        setModalVisible(true);
+      }    
+      catch (error) {
+      console.log(error);
+      Alert.alert('Erro!', 'Erro ao buscar dados de população e consumo médio!');
+      setModalVisible(false);
+    }
   }
+  
 
   function limparCampos() {
     setValor("");
-    setPopulacao("");
+    setHabitante("");
     setResultado(null);
+    setEstadoSelecionado('')
   }
 
   return (
@@ -88,7 +107,7 @@ function App() {
            <Picker
           selectedValue={estadoSelecionado}
           style={styles.dropDownContainer}
-          onValueChange={(itemValue, itemIndex) => setEstadoSelecionado(itemValue)}
+          onValueChange={handleEstadoSelecionado}
         >
           <Picker.Item label="Selecione o estado que você reside" value="" />
           {estados.map((estado) => (
