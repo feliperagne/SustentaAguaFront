@@ -71,7 +71,14 @@ function App() {
         const populacaoEstado = parseFloat(habitante);
         const consumoDoEstado = parseFloat(consumoMedioEstado);
         const consumo = (valorInserido / 100 / consumoDoEstado) * 30 * populacaoEstado;
-        const consumoFormatado = consumo.toFixed(2) * 1000;
+        /*Explicação do cálculo: 
+       - valorInserido / 100 converte o valor em reais para centavos.
+       - consumoDoEstado divide o valor em centavos pelo consumo médio de água do estado para obter o custo em litros por centavo.
+       - multiplica o resultado por 30 para obter o custo mensal em litros por centavo.
+       - multiplica o resultado pelo número de habitantes do estado para obter o consumo total em litros.
+       - Portanto, o resultado final (consumo) é o consumo de água em litros necessário para atender à meta de gastos em reais.
+        */
+        const consumoFormatado = consumo.toFixed(2).substring(0,4);
         setResultado(consumoFormatado);
         setModalVisible(true);
       }    
@@ -124,7 +131,7 @@ function App() {
         <Modal isVisible={isModalVisible}>
           <View style={styles.modalContent}>
             <Text style={styles.resultadoModal}>
-              O consumo de água recomendado é de {resultado} litros por mês.
+              O consumo de água recomendado é de, aproximadamente, {resultado} litros por mês.
             </Text>
             <Button
               title="Fechar"
