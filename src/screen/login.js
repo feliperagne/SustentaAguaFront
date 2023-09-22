@@ -8,7 +8,7 @@ const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = ' https://d815-179-127-67-47.ngrok-free.app/api'
+  const urlAPI = 'https://cda9-179-127-67-47.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
@@ -52,7 +52,7 @@ const Login = ({navigation}) => {
       } else if (typeof error === 'string') {
         Alert.alert('Erro de Login', error);
       } else {
-        Alert.alert('Erro de Login: Ocorreu um erro ao fazer o login.');
+        Alert.alert('Erro de Login','Ocorreu um erro ao fazer o login.');
       }
     }
   }

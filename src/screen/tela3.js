@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
  
 const Cabecalho = () => {
-  const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout';
+  const urlAPI = 'https://60da-201-63-132-162.ngrok-free.app/api/logout';
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
 

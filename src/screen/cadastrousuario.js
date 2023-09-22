@@ -5,47 +5,53 @@ import {
   TextInput,
   TouchableOpacity,
   Alert,
-  Image,
   StyleSheet,
   ScrollView
 } from "react-native";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import * as ImagePicker from 'expo-image-picker';
 
 export default () => {
+  const [name, setName] = useState("")
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = " https://d815-179-127-67-47.ngrok-free.app/api/user";
+  const urlAPI = "https://cda9-179-127-67-47.ngrok-free.app/api/user";
   const navigation = useNavigation();
 
-  async function cadastrar(username, email, password) {
-    const usernameMinusculo = username.toLowerCase();
 
+
+  async function cadastrar(name, username, email, password) {
+    const usernameMinusculo = username.toLowerCase();
     try {
-      const response = await axios.post(urlAPI, { 'username': usernameMinusculo, 'email' : email, 'password': password });
-      console.log(response);
-      return response.data;
+        const response = await axios.post(urlAPI, {
+            'name': name,
+            'username': usernameMinusculo,
+            'email': email,
+            'password': password
+        });
+        console.log(response);
+        return response.data;
     } catch (error) {
-      if (error.response && error.response.data) {
-        const errors = error.response.data.errors;
-        if (errors) {
-          const errorMessages = [];
-          for (const errorKey in errors) {
-            if (errors.hasOwnProperty(errorKey)) {
-              const errorList = errors[errorKey];
-              for (const errorMessage of errorList) {
-                errorMessages.push(`${errorKey}: ${errorMessage}`);
-              }
+        if (error.response && error.response.data) {
+            const errors = error.response.data.errors;
+            if (errors) {
+                const errorMessages = [];
+                for (const errorKey in errors) {
+                    if (errors.hasOwnProperty(errorKey)) {
+                        const errorList = errors[errorKey];
+                        for (const errorMessage of errorList) {
+                            errorMessages.push(`${errorKey}: ${errorMessage}`);
+                        }
+                    }
+                }
+                throw errorMessages.join('\n'); // Junte todos os erros em uma única string
             }
-          }
-          throw errorMessages.join('\n'); // Junte todos os erros em uma única string
         }
-      }
-      throw new Error('Ocorreu um erro ao fazer o login');
+        throw new Error('Ocorreu um erro ao fazer o login');
     }
-  }
+}
+
 
   async function handlesubmit() {
     if (/[A-Z]/.test(username)) {
@@ -54,7 +60,7 @@ export default () => {
     }
 
     try {
-      const cadastro = await cadastrar(username, email, password);
+      const cadastro = await cadastrar(name, username, email, password);
       if(cadastro){
         console.log('Cadastro Feito!', cadastro);
         Alert.alert('Cadastro Feito!');
@@ -68,7 +74,7 @@ export default () => {
       } else if (typeof error === 'string') {
         Alert.alert('Erro de cadastro!', error);
       } else {
-        Alert.alert('Erro de cadastro! Ocorreu um erro ao fazer o cadastro, tente novamente!');
+        Alert.alert('Erro de cadastro!' ,'Ocorreu um erro ao fazer o cadastro, tente novamente!');
       }
     }
   }
@@ -82,7 +88,13 @@ export default () => {
         <View style={styles.container2}>
           <TextInput
             style={styles.input}
-            placeholder="Insira o nome que seu usuário terá"
+            placeholder="Insira seu nome"
+            value={name}
+            onChangeText={(text) => setName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Insira um nome de usuário para você"
             value={username}
             onChangeText={(text) => setUsername(text)}
           />
@@ -97,14 +109,16 @@ export default () => {
             placeholder="Insira uma senha para você"
             value={password}
             keyboardType="number-pad"
+            secureTextEntry={true}
             onChangeText={(text) => setPassword(text)}
           />
-          <TouchableOpacity style={styles.button} onPress={() => handlesubmit()}>
+          <TouchableOpacity style={styles.button} onPress={handlesubmit}>
             <Text style={styles.buttonText}>Cadastrar</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
+              setNome("")
               setUsername("");
               setEmail("");
               setPassword("");
