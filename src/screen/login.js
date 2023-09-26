@@ -8,7 +8,7 @@ const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://cda9-179-127-67-47.ngrok-free.app/api'
+  const urlAPI = 'https://5c1c-179-127-67-47.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
@@ -24,7 +24,7 @@ const Login = ({navigation}) => {
             if (errors.hasOwnProperty(errorKey)) {
               const errorList = errors[errorKey];
               for (const errorMessage of errorList) {
-                errorMessages.push(`${errorKey}: ${errorMessage}`);
+                errorMessages.push(`${errorMessage}`);
               }
             }
           }
@@ -40,8 +40,19 @@ const Login = ({navigation}) => {
       const user = await login(username, password);
       if(user){
       console.log('Login bem sucedido', user);
+      const response = await axios.get(`${urlAPI}/getNomeUsuarioPeloUsername/${username}`)
+      console.log(response.data)
+      //const name = response.data.nome
+      
+      const nomeDoUsuario = response.data.data.nome;
+
+      await AsyncStorage.setItem('name', nomeDoUsuario);
+
+      await AsyncStorage.setItem('username', username);
+
+
+
       Alert.alert('Login bem sucedido!');
-     await AsyncStorage.setItem('username',username)
       navigation.navigate('Página inicial');
       }
     } catch (error) {
@@ -55,6 +66,11 @@ const Login = ({navigation}) => {
         Alert.alert('Erro de Login','Ocorreu um erro ao fazer o login.');
       }
     }
+  }
+
+  function limparCampos() {
+    setPassword('')
+    setUsername('')
   }
   
   return (
@@ -79,6 +95,10 @@ const Login = ({navigation}) => {
         />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button} onPress={limparCampos} >
+          <Text style={styles.buttonText}>Limpar Campos</Text>
         </TouchableOpacity>
      
     </View>
@@ -154,6 +174,7 @@ contentContainer: {
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
+    margin:10
   },
   linkText: {
     color: 'blue',

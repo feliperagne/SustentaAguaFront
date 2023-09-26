@@ -16,7 +16,7 @@ export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = "https://cda9-179-127-67-47.ngrok-free.app/api/user";
+  const urlAPI = "https://5c1c-179-127-67-47.ngrok-free.app/api/user";
   const navigation = useNavigation();
 
 
@@ -41,7 +41,7 @@ export default () => {
                     if (errors.hasOwnProperty(errorKey)) {
                         const errorList = errors[errorKey];
                         for (const errorMessage of errorList) {
-                            errorMessages.push(`${errorKey}: ${errorMessage}`);
+                            errorMessages.push(`${errorMessage}`);
                         }
                     }
                 }
@@ -118,10 +118,10 @@ export default () => {
           <TouchableOpacity
             style={styles.button}
             onPress={() => {
-              setNome("")
-              setUsername("");
-              setEmail("");
-              setPassword("");
+              setName("")
+              setUsername("")
+              setEmail("")
+              setPassword("")
             }}
           >
             <Text style={styles.buttonText}>Limpar</Text>

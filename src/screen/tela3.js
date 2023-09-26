@@ -5,24 +5,24 @@ import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
  
 const Cabecalho = () => {
-  const urlAPI = 'https://60da-201-63-132-162.ngrok-free.app/api/logout';
+  const urlAPI = 'https://5c1c-179-127-67-47.ngrok-free.app/api/logout';
   const navigation = useNavigation();
-  const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
 
   useEffect(() => {
-    async function loadUsername() {
+    async function getName() {
       try {
-        const storedUsername = await AsyncStorage.getItem('username');
-        const usuarioMaiusculo = storedUsername.toUpperCase()
-        if (usuarioMaiusculo) {
-          setUsername(usuarioMaiusculo);
+        const storedName = await AsyncStorage.getItem('name');
+        console.log('nome armazenado: ', storedName)
+        if (storedName) {
+          setName(storedName);
         }
       } catch (error) {
         console.error(error);
       }
     }
 
-    loadUsername();
+    getName();
   }, []);
 
   async function sair(navigation) {
@@ -50,7 +50,7 @@ const Cabecalho = () => {
         <Text style={styles.logoText}>Sustenta Água</Text>
       </View>
       <View style={{flexDirection:'column', left:20}}>
-      <Text style={{fontSize:15,fontWeight:'bold', color:'#fff'}}>Bem vindo, {username}!</Text>
+      <Text style={{fontSize:15,fontWeight:'bold', color:'#fff'}}>Bem vindo, {name}!</Text>
       <TouchableOpacity onPress={() => sair(navigation)}>
         <Text style={styles.logout}>Logout</Text>
       </TouchableOpacity>
@@ -69,8 +69,14 @@ const styles = StyleSheet.create({
     paddingHorizontal:47
   },
   logout: {
-    color: 'red',
+    color: '#125',
     fontSize: 16,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: 'black',
+    backgroundColor: '#4583',
+    textAlign:'center',
+    top:5
   },
   userInfo: {
     flexDirection: 'row',

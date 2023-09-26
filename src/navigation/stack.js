@@ -7,6 +7,7 @@ import sobremim from "../screen/sobremim";
 import cadastrousuario from "../screen/cadastrousuario";
 import index from "../screen/index";
 import { FlatList } from "react-native";
+import NoticiasScreen from "../screen/noticiasAPI";
 
 export default() =>{
  const Stack = createNativeStackNavigator();
@@ -16,6 +17,7 @@ export default() =>{
                 headerShown: false,
             }}*/
         >
+            {/*<Stack.Screen name='NoticiasAPI' component={NoticiasScreen}></Stack.Screen>*/}
             <Stack.Screen name="Login" component={login}></Stack.Screen>
             <Stack.Screen name="Calculadora Sustentável" component={calculadora}></Stack.Screen>
             <Stack.Screen name='Notícias' component={noticias}></Stack.Screen>
