@@ -13,7 +13,7 @@ const cabecalhocalculadora = () => {
     <View style={styles.header}>
       <View style={styles.userInfo}>
         <Image style={styles.logo} source={require('../../assets/logo.png')} />
-        <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22, left:5 }}>
+        <Text style={{ fontWeight: 'bold', fontSize: 30, marginLeft: 22, left:5, top:15 }}>
           Sustenta Água
         </Text>
         <Image style={styles.logo2} source={require('../../assets/logo.png')} />
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#5d7afc',
-    padding: 20,
+    padding: 40,
   },
   userInfo: {
     flexDirection: 'row',
@@ -40,12 +40,14 @@ const styles = StyleSheet.create({
     width: 70,
     height: 50,
     resizeMode: 'contain',
+    top:15
   },
   logo2: {
     width: 70,
     height: 50,
     resizeMode: 'contain',
     marginLeft: 40, // Alterado para marginLeft para dar espaço entre os logos
+    top:15
   },
   news: {
     marginTop: 10,

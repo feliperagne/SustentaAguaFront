@@ -49,8 +49,8 @@ const Cabecalho = () => {
         />
         <Text style={styles.logoText}>Sustenta Água</Text>
       </View>
-      <View style={{flexDirection:'column', left:20}}>
-      <Text style={{fontSize:15,fontWeight:'bold', color:'#fff'}}>Bem vindo, {name}!</Text>
+      <View style={{flexDirection:'column', left:20,top:12}}>
+      <Text style={{fontSize:13,fontWeight:'bold', color:'#fff'}}>Bem vindo, {name}!</Text>
       <TouchableOpacity onPress={() => sair(navigation)}>
         <Text style={styles.logout}>Logout</Text>
       </TouchableOpacity>
@@ -61,12 +61,13 @@ const Cabecalho = () => {
 
 const styles = StyleSheet.create({
   header: {
+    flex:1,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#5d7afc', // Cor de fundo do cabeçalho
-    padding: 23,
-    paddingHorizontal:47
+    padding: 10,
+    paddingHorizontal:38,
   },
   logout: {
     color: '#125',
@@ -90,12 +91,14 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     resizeMode: 'contain',
-    marginRight: 10
+    marginRight: 10,
+    top:12
   },
   logoText: {
     color: '#fff',
     fontSize: 20,
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    top:12
   }
 });
 

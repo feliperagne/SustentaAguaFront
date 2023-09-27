@@ -13,9 +13,9 @@ export default() =>{
  const Stack = createNativeStackNavigator();
     return (
         <Stack.Navigator
-           /* screenOptions={{
+            screenOptions={{
                 headerShown: false,
-            }}*/
+            }}
         >
             {/*<Stack.Screen name='NoticiasAPI' component={NoticiasScreen}></Stack.Screen>*/}
             <Stack.Screen name="Login" component={login}></Stack.Screen>

@@ -5,10 +5,10 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from "@react-navigation/native";
 
 const Cabecalho2 = () => {
-  const urlAPI = 'https://0cd9-201-49-195-24.ngrok-free.app/api/logout'
+ // const urlAPI = 'https://5c1c-179-127-67-47.ngrok-free.app/api/logout'
   const navigation = useNavigation()
 
-  async function sair(navigation) {
+  /*async function sair(navigation) {
     try {
       const response = await axios.post(urlAPI);
       if (response.status === 200) {
@@ -21,7 +21,7 @@ const Cabecalho2 = () => {
       console.error('Erro:', error);
       Alert.alert('Erro no logout', 'Ocorreu um erro durante o logout.');
     }
-  };
+  };*/
 
   return (
     <View style={styles.header}>
@@ -61,11 +61,13 @@ const styles = StyleSheet.create({
     height: 50,
     resizeMode: 'contain',
     margin: 10,
+    top:20
   },
   title: {
     fontWeight: 'bold',
     fontSize: 30,
     color: '#fff',
+    top:20
   },
   news: {
     flexDirection: 'row',
@@ -78,6 +80,7 @@ const styles = StyleSheet.create({
     fontSize: 23,
     fontWeight: 'bold',
     color: '#fff',
+    top:10
   },
   logout: {
     color: '#fa3b22',

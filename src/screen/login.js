@@ -94,7 +94,7 @@ const Login = ({navigation}) => {
           secureTextEntry
         />
         <TouchableOpacity style={styles.button} onPress={handleLogin}>
-          <Text style={styles.buttonText}>Login</Text>
+          <Text style={styles.buttonText}>Entrar</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={limparCampos} >
@@ -189,7 +189,7 @@ contentContainer: {
   footer: {
     position: 'absolute',
     bottom: 0,
-    width: '114%',
+    width: '100%',
     height: '10%',
     backgroundColor: '#1345',
     paddingVertical: 10,
