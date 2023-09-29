@@ -6,8 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import Noticias from './src/screen/noticias';
 import Stack from './src/navigation/stack';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-
-
+import UserProvider from './context/userContext';
 function HomeScreen() {
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -21,10 +20,12 @@ const stack = createNativeStackNavigator();
 export default function App() {
 
   return (
+    <UserProvider>
     <NavigationContainer>
    
       <Stack></Stack>
 
     </NavigationContainer>
+    </UserProvider>
   );
 }

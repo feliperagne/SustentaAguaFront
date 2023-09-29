@@ -3,13 +3,13 @@ import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Ima
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { userUser } from '../../context/userContext';
 const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const urlAPI = 'https://5c1c-179-127-67-47.ngrok-free.app/api'
-
+  const {user,setUser} = userUser()
   async function login(username, password) {
     try {
       const response = await axios.post(`${urlAPI}/login`, { 'username': username, 'password': password });
