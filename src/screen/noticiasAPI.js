@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, FlatList, StyleSheet } from "react-native";
+import { View, Text, FlatList, StyleSheet, Image } from "react-native";
 import axios from "axios";
 import { Picker } from "@react-native-picker/picker";
 
 const NoticiasScreen = () => {
-  const [manchetes, setManchetes] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('br'); // Padrão para os EUA
+  const [articles, setArticles] = useState([]);
+  const [selectedCountry, setSelectedCountry] = useState('Selecione um país'); // Padrão para ficar na posicao de escolher um país
 
   useEffect(() => {
     // Faça uma solicitação HTTP para obter as manchetes da API com base no país selecionado
@@ -13,8 +13,8 @@ const NoticiasScreen = () => {
       .get(`https://5c1c-179-127-67-47.ngrok-free.app/api/noticias/${selectedCountry}`)
       .then((response) => {
         // Defina o estado das manchetes com os dados da API
-        setManchetes(response.data.data);
-        console.log(manchetes);
+        setArticles(response.data.articles);
+       // console.log(response.data.articles);
       })
       .catch((error) => {
         console.error("Erro ao buscar as manchetes:", error);
@@ -90,17 +90,25 @@ const NoticiasScreen = () => {
         <Picker.Item label="África do Sul" value="za" />
       </Picker>
 
-
       <FlatList
-  data={manchetes} // Acesse o array de artigos dentro do objeto "manchetes"
+  data={articles} // Acesse o array de notícias
   keyExtractor={(item, index) => index.toString()}
   renderItem={({ item }) => (
     <View style={styles.noticiaContainer}>
       <Text style={styles.titulo}>{item.title}</Text>
-      <Text style={styles.descricao}>{item.description}</Text>
+      <Text style={styles.autor}>Autor: {item.author}</Text>
+      {item.description && <Text style={styles.descricao}>{item.description}</Text>} 
+      {/* se descricao existir, vai mostrar no flat list*/}
+      <Text style={styles.source}>Fonte: {item.source.name}</Text>
+      <Text style={styles.publishedAt}>Publicado em: {item.publishedAt}</Text>
+      {item.urlToImage && <Image source={{ uri: item.urlToImage }} style={styles.imagem} />} 
+      {/* se a noticia ter imagem, vai mostrar no flat list*/}
+      {item.content && <Text style={styles.content}>{item.content}</Text>} 
+      {/* se a noticia ter um conteudo extra, vai mostrar */}
     </View>
   )}
 />
+
 
     </View>
   );
@@ -109,34 +117,61 @@ const NoticiasScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
     backgroundColor: "#f2f2f2",
   },
   header: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     marginBottom: 16,
+    textAlign: "center",
+    backgroundColor:'#5d7afc',
+    padding:50
   },
   picker: {
     marginBottom: 16,
+    backgroundColor: "white",
+    borderRadius: 8,
+    width:'80%',
+    left:'10%'
   },
   noticiaContainer: {
-    backgroundColor: "black",
+    backgroundColor: "white",
     padding: 16,
     borderRadius: 8,
     marginBottom: 16,
     elevation: 2,
+    borderWidth: 1,
+    borderColor: "gray",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
   },
   titulo: {
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
-    color: 'black'
+    color: "black",
+    borderBottomWidth: 1, // Adiciona uma borda inferior
+    borderBottomColor: "gray",
   },
   descricao: {
     fontSize: 16,
     color: "gray",
+     borderBottomWidth: 1, // Adiciona uma borda inferior
+    borderBottomColor: "gray", // Cor da borda inferior
   },
+  imagem:{
+    resizeMode:'contain',
+    width:200,
+    height:200,
+    justifyContent: 'center',
+    alignSelf:'center'
+  }
 });
+
 
 export default NoticiasScreen;

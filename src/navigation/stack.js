@@ -17,7 +17,7 @@ export default() =>{
                 headerShown: false,
             }}
         >
-            {/*<Stack.Screen name='NoticiasAPI' component={NoticiasScreen}></Stack.Screen>*/}
+            <Stack.Screen name='NoticiasAPI' component={NoticiasScreen}></Stack.Screen>
             <Stack.Screen name="Login" component={login}></Stack.Screen>
             <Stack.Screen name="Calculadora Sustentável" component={calculadora}></Stack.Screen>
             <Stack.Screen name='Notícias' component={noticias}></Stack.Screen>
