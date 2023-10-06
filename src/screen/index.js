@@ -25,7 +25,7 @@ export default () => {
 
         <TouchableOpacity
           style={styles.button}
-          onPress={() => navigation.navigate("Notícias")}
+          onPress={() => navigation.navigate("NoticiasAPI")}
         >
           <Text style={styles.buttonText}>Noticiário / Metas da Onu</Text>
         </TouchableOpacity>

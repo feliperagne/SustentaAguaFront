@@ -27,7 +27,9 @@ const NoticiasScreen = () => {
 
   return (
     <View style={styles.container}>
+     
       <Text style={styles.header}>Manchetes de Notícias</Text>
+    
       <Picker
         selectedValue={selectedCountry}
         onValueChange={handleCountryChange}

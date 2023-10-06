@@ -1,10 +1,5 @@
-import { View, Image, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Image, Text, StyleSheet} from "react-native";
 import React from "react";
-import axios from "axios";
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
-
-
 
 
 const cabecalhocalculadora = () => {

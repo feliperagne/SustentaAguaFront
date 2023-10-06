@@ -13,7 +13,7 @@ const Login = ({navigation}) => {
   async function login(username, password) {
     try {
       const response = await axios.post(`${urlAPI}/login`, { 'username': username, 'password': password });
-      console.log(response);
+      //console.log(response);
       return response.data;
     } catch (error) {
       if (error.response && error.response.data) {
@@ -41,8 +41,6 @@ const Login = ({navigation}) => {
       if(user){
       console.log('Login bem sucedido', user);
       const response = await axios.get(`${urlAPI}/getNomeUsuarioPeloUsername/${username}`)
-      console.log(response.data)
-      //const name = response.data.nome
       
       const nomeDoUsuario = response.data.data.nome;
 
