@@ -21,7 +21,7 @@ function App() {
   const [consumoMedioEstado, setConsumoMedioEstado] = useState("");
   const [resultado, setResultado] = useState(null);
   const [isModalVisible, setModalVisible] = useState(false);
-  const URLapi = "https://5c1c-179-127-67-47.ngrok-free.app/api/estados";
+  const URLapi = "https://c655-201-63-132-162.ngrok-free.app/api/estados";
   const [estados, setEstados] = useState([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState([]);
 
@@ -50,7 +50,7 @@ function App() {
     // Carregue os valores de população e consumo médio aqui
     try {
       const response = await axios.get(
-        `https://5c1c-179-127-67-47.ngrok-free.app/api/listarPopulacaoEConsumo/${itemValue}`
+        ` https://c655-201-63-132-162.ngrok-free.app/api/listarPopulacaoEConsumo/${itemValue}`
       );
       const data = response.data.data; // Retornar o array real (puro)
 

@@ -10,7 +10,7 @@ const NoticiasScreen = () => {
   useEffect(() => {
     // Faça uma solicitação HTTP para obter as manchetes da API com base no país selecionado
     axios
-      .get(`https://5c1c-179-127-67-47.ngrok-free.app/api/noticias/${selectedCountry}`)
+      .get(`https://c655-201-63-132-162.ngrok-free.app/api/noticias/${selectedCountry}`)
       .then((response) => {
         // Defina o estado das manchetes com os dados da API
         setArticles(response.data.articles);

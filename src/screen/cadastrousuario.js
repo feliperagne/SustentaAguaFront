@@ -16,7 +16,7 @@ export default () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const urlAPI = "https://5c1c-179-127-67-47.ngrok-free.app/api/user";
+  const urlAPI = "https://c655-201-63-132-162.ngrok-free.app/api/user";
   const navigation = useNavigation();
 
 

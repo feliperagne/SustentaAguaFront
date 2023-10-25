@@ -1,14 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image, ImageBackground } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Alert, TouchableOpacity, Image, ScrollView} from 'react-native';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
 const Login = ({navigation}) => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const urlAPI = 'https://5c1c-179-127-67-47.ngrok-free.app/api'
+  const urlAPI = 'https://13cf-179-127-67-47.ngrok-free.app/api'
 
   async function login(username, password) {
     try {
@@ -72,7 +71,8 @@ const Login = ({navigation}) => {
   }
   
   return (
-    <View style={styles.pageContainer}>
+    
+    <ScrollView contentContainerStyle={styles.pageContainer}>
     <View style={styles.container}>
         <View style={styles.imageContainer}>
           <Image source={require('../../assets/logo.png')} style={styles.logo} />
@@ -118,7 +118,8 @@ const Login = ({navigation}) => {
       <Text style={styles.footerText}>© 2023 Felipe Silveira. Todos os direitos reservados.</Text>
     </View>
     
-  </View>
+  </ScrollView>
+  
 );
 };
 
